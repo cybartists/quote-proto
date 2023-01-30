@@ -4,11 +4,10 @@
 // - protoc             v3.21.12
 // source: comm.proto
 
-package comm
+package quote_proto
 
 import (
 	context "context"
-	entity "github.com/cybartists/quote-proto/entity"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -24,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProxyClient interface {
 	//推送逐笔成交行情数据
-	NewTickRecordStream(ctx context.Context, in *entity.Void, opts ...grpc.CallOption) (Proxy_NewTickRecordStreamClient, error)
+	NewTickRecordStream(ctx context.Context, in *Void, opts ...grpc.CallOption) (Proxy_NewTickRecordStreamClient, error)
 }
 
 type proxyClient struct {
@@ -35,8 +34,8 @@ func NewProxyClient(cc grpc.ClientConnInterface) ProxyClient {
 	return &proxyClient{cc}
 }
 
-func (c *proxyClient) NewTickRecordStream(ctx context.Context, in *entity.Void, opts ...grpc.CallOption) (Proxy_NewTickRecordStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Proxy_ServiceDesc.Streams[0], "/rpc.comm.Proxy/NewTickRecordStream", opts...)
+func (c *proxyClient) NewTickRecordStream(ctx context.Context, in *Void, opts ...grpc.CallOption) (Proxy_NewTickRecordStreamClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Proxy_ServiceDesc.Streams[0], "/comm.Proxy/NewTickRecordStream", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +50,7 @@ func (c *proxyClient) NewTickRecordStream(ctx context.Context, in *entity.Void, 
 }
 
 type Proxy_NewTickRecordStreamClient interface {
-	Recv() (*entity.Transaction, error)
+	Recv() (*Transaction, error)
 	grpc.ClientStream
 }
 
@@ -59,8 +58,8 @@ type proxyNewTickRecordStreamClient struct {
 	grpc.ClientStream
 }
 
-func (x *proxyNewTickRecordStreamClient) Recv() (*entity.Transaction, error) {
-	m := new(entity.Transaction)
+func (x *proxyNewTickRecordStreamClient) Recv() (*Transaction, error) {
+	m := new(Transaction)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -72,7 +71,7 @@ func (x *proxyNewTickRecordStreamClient) Recv() (*entity.Transaction, error) {
 // for forward compatibility
 type ProxyServer interface {
 	//推送逐笔成交行情数据
-	NewTickRecordStream(*entity.Void, Proxy_NewTickRecordStreamServer) error
+	NewTickRecordStream(*Void, Proxy_NewTickRecordStreamServer) error
 	mustEmbedUnimplementedProxyServer()
 }
 
@@ -80,7 +79,7 @@ type ProxyServer interface {
 type UnimplementedProxyServer struct {
 }
 
-func (UnimplementedProxyServer) NewTickRecordStream(*entity.Void, Proxy_NewTickRecordStreamServer) error {
+func (UnimplementedProxyServer) NewTickRecordStream(*Void, Proxy_NewTickRecordStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method NewTickRecordStream not implemented")
 }
 func (UnimplementedProxyServer) mustEmbedUnimplementedProxyServer() {}
@@ -97,7 +96,7 @@ func RegisterProxyServer(s grpc.ServiceRegistrar, srv ProxyServer) {
 }
 
 func _Proxy_NewTickRecordStream_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(entity.Void)
+	m := new(Void)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -105,7 +104,7 @@ func _Proxy_NewTickRecordStream_Handler(srv interface{}, stream grpc.ServerStrea
 }
 
 type Proxy_NewTickRecordStreamServer interface {
-	Send(*entity.Transaction) error
+	Send(*Transaction) error
 	grpc.ServerStream
 }
 
@@ -113,7 +112,7 @@ type proxyNewTickRecordStreamServer struct {
 	grpc.ServerStream
 }
 
-func (x *proxyNewTickRecordStreamServer) Send(m *entity.Transaction) error {
+func (x *proxyNewTickRecordStreamServer) Send(m *Transaction) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -121,7 +120,7 @@ func (x *proxyNewTickRecordStreamServer) Send(m *entity.Transaction) error {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Proxy_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "rpc.comm.Proxy",
+	ServiceName: "comm.Proxy",
 	HandlerType: (*ProxyServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
