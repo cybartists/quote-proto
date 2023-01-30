@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-option go_package = "quote-proto/comm";
-package sa.rpc.comm;
+option go_package = "github.com/cybartists/quote-proto/comm";
+package rpc.comm;
 import "proto/entity.proto";
 
 service Proxy{

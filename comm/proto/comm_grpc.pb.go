@@ -8,10 +8,10 @@ package comm
 
 import (
 	context "context"
+	entity "github.com/cybartists/quote-proto/entity"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	entity "quote-proto/entity"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -36,7 +36,7 @@ func NewProxyClient(cc grpc.ClientConnInterface) ProxyClient {
 }
 
 func (c *proxyClient) NewTickRecordStream(ctx context.Context, in *entity.Void, opts ...grpc.CallOption) (Proxy_NewTickRecordStreamClient, error) {
-	stream, err := c.cc.NewStream(ctx, &Proxy_ServiceDesc.Streams[0], "/sa.rpc.comm.Proxy/NewTickRecordStream", opts...)
+	stream, err := c.cc.NewStream(ctx, &Proxy_ServiceDesc.Streams[0], "/rpc.comm.Proxy/NewTickRecordStream", opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -121,7 +121,7 @@ func (x *proxyNewTickRecordStreamServer) Send(m *entity.Transaction) error {
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Proxy_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "sa.rpc.comm.Proxy",
+	ServiceName: "rpc.comm.Proxy",
 	HandlerType: (*ProxyServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
