@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "quote-proto/comm";
+package sa.rpc.comm;
+import "proto/entity.proto";
+
+service Proxy{
+  //推送逐笔成交行情数据
+  rpc NewTickRecordStream(entity.Void)returns(stream entity.Transaction){}
+}
