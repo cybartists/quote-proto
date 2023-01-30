@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.21.12
-// source: proto/comm.proto
+// source: comm.proto
 
 package comm
 
@@ -131,5 +131,5 @@ var Proxy_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "proto/comm.proto",
+	Metadata: "comm.proto",
 }

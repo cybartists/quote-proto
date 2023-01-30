@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "github.com/cybartists/quote-proto/comm";
 package rpc.comm;
-import "proto/entity.proto";
+import "entity.proto";
 
 service Proxy{
   //推送逐笔成交行情数据
