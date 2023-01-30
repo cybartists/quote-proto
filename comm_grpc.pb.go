@@ -67,22 +67,20 @@ func (x *proxyNewTickRecordStreamClient) Recv() (*Transaction, error) {
 }
 
 // ProxyServer is the server API for Proxy service.
-// All implementations must embed UnimplementedProxyServer
+// All implementations should embed UnimplementedProxyServer
 // for forward compatibility
 type ProxyServer interface {
 	//推送逐笔成交行情数据
 	NewTickRecordStream(*Void, Proxy_NewTickRecordStreamServer) error
-	mustEmbedUnimplementedProxyServer()
 }
 
-// UnimplementedProxyServer must be embedded to have forward compatible implementations.
+// UnimplementedProxyServer should be embedded to have forward compatible implementations.
 type UnimplementedProxyServer struct {
 }
 
 func (UnimplementedProxyServer) NewTickRecordStream(*Void, Proxy_NewTickRecordStreamServer) error {
 	return status.Errorf(codes.Unimplemented, "method NewTickRecordStream not implemented")
 }
-func (UnimplementedProxyServer) mustEmbedUnimplementedProxyServer() {}
 
 // UnsafeProxyServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ProxyServer will
